@@ -1,5 +1,6 @@
 import math
 import unittest
+import random
 
 def wallis(n):
     pro = 1
@@ -19,6 +20,16 @@ class TestWallis(unittest.TestCase):
         for i in range(500, 600):
             pi = wallis(i)
             self.assertTrue(abs(pi - math.pi) < 0.01, msg=f"Estimate with even {i} iterations is {pi} which is not accurate enough.\n")
+
+def monte_carlo(n):
+    k = 0
+    for _ in range(n):
+        x = random.random()
+        y = random.random()
+        if (x-0.5)**2 + (y-0.5)**2 <= 0.25:
+            k += 1
+    return 4*k/n
+            
 
 class TestMC(unittest.TestCase):
     def test_randomness(self):
